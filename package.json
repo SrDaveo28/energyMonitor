@@ -1,0 +1,25 @@
+{
+  "name": "energymonitor",
+  "version": "1.0.0",
+  "description": "��#\u0000 \u0000e\u0000n\u0000e\u0000r\u0000g\u0000y\u0000M\u0000o\u0000n\u0000i\u0000t\u0000o\u0000r\u0000\r\u0000 \u0000",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SrDaveo28/energyMonitor.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SrDaveo28/energyMonitor/issues"
+  },
+  "homepage": "https://github.com/SrDaveo28/energyMonitor#readme",
+  "dependencies": {
+    "express": "^4.18.1",
+    "serialport": "^10.4.0",
+    "socket.io": "^4.5.2"
+  }
+}
