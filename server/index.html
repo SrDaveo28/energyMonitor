@@ -11,7 +11,7 @@
 <body>
     <h1>Energy Monitor</h1>
 
-    <canvas id="myChart" width="400" height="400"></canvas>
+    <canvas id="myChart" width="1920"></canvas>
 
     <!-- ChartJS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"
@@ -28,6 +28,7 @@
         const socket = io();
         let counter = 0;
         socket.on('arduino:data', (arduData) => {
+            console.log(arduData);
             myChart.data.labels.push(counter);
             myChart.data.datasets.forEach(dataset => {
                 dataset.data.push(arduData.value);
