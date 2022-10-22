@@ -12,7 +12,7 @@ io.on('connection', (socket) => {
 })
 
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/index.html');
+    res.sendFile(__dirname + '/public/index.html');
 });
 
 const { SerialPort } = require('serialport');
