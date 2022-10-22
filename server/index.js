@@ -18,7 +18,7 @@ app.get('/', (req, res) => {
 const { SerialPort } = require('serialport');
 const { ReadlineParser } = require('@serialport/parser-readline');
 
- //SerialPort.list().then(ports => console.log(ports))
+//SerialPort.list().then(ports => console.log(ports))
 var dataArduino;
 
 const port = new SerialPort({ path: 'COM10', baudRate: 9600 }, (err) => {
@@ -35,14 +35,24 @@ port.write('main screen turn on', (err) => {
 /* console.log(port); */
 const parser = port.pipe(new ReadlineParser({ delimiter: '\r\n' }));
 
-
 parser.on('open', () => {
     console.log('Open connection');
 })
 parser.on('data', (data) => {
-    console.log('Data:', data)
+    let nombresincortar = data
+    let nombrecortado = nombresincortar.split(" ");
+    let primernombre = nombrecortado[0];
+    
+    let dinamico;
+    let estatico;
+    
+    if (primernombre == "dinamico:") dinamico =nombrecortado[1];
+    else if (primernombre == "estatico:") estatico = nombrecortado[1];
+
+
     io.emit('arduino:data', {
-        value: data.toString(),
+        dinamico,
+        estatico
     })
 });
 

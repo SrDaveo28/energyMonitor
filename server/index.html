@@ -6,12 +6,28 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Energy Monitor</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 </head>
 
 <body>
-    <h1>Energy Monitor</h1>
+    <h1 class="text-center mb-3">Energy Monitor</h1>
 
-    <canvas id="myChart" width="1920"></canvas>
+    <div class="row">
+        <div class="col-6">
+            <h1 class="mb-3">Panel dinámico</h1>
+            <canvas id="myChart" width="100"></canvas>
+        </div>
+        <div class="col-6">
+            <h1 class="mb-3">Panel estático</h1>
+            <canvas id="myChart2" width="100"></canvas>
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+        crossorigin="anonymous"></script>
 
     <!-- ChartJS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"
@@ -26,16 +42,31 @@
 
     <script>
         const socket = io();
-        let counter = 0;
+        let counterDina = 0;
+        let counterStat = 0;
         socket.on('arduino:data', (arduData) => {
-            console.log(arduData);
-            myChart.data.labels.push(counter);
-            myChart.data.datasets.forEach(dataset => {
-                dataset.data.push(arduData.value);
-            });
 
-            counter++;
-            myChart.update();
+            if (arduData.dinamico !== undefined) {
+                myChart.data.labels.push(counterDina);
+                myChart.data.datasets.forEach(dataset => {
+
+                    if (dataset !== undefined) dataset.data.push(arduData.dinamico);
+
+                });
+
+                counterDina++;
+                myChart.update();
+            } else if (arduData.estatico !== undefined) {
+                myChartTwo.data.labels.push(counterStat);
+                myChartTwo.data.datasets.forEach(dataset => {
+
+                    if (dataset !== undefined) dataset.data.push(arduData.estatico);
+
+                });
+
+                counterStat++;
+                myChartTwo.update();
+            }
         });
 
         const ctx = document.getElementById('myChart').getContext('2d');
@@ -47,11 +78,27 @@
                     label: "Energía generada",
                     backgroundColor: "rgb(52, 73, 94)",
                     borderColor: "rgb(41, 128, 185)",
-                    data:[]
+                    data: []
                 }]
             },
             options: {}
         });
+
+        const ctxTwo = document.getElementById('myChart2').getContext('2d');
+        const myChartTwo = new Chart(ctxTwo, {
+            type: 'line',
+            data: {
+                labels: ['Watts'],
+                datasets: [{
+                    label: "Energía generada",
+                    backgroundColor: "#007000",
+                    borderColor: "#007000 ",
+                    data: []
+                }]
+            },
+            options: {}
+        });
+
     </script>
 </body>
 
