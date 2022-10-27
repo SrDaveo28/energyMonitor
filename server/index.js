@@ -1,11 +1,11 @@
 const express = require('express');
 const { Server } = require("socket.io");
 const http = require('http');
-
 const app = express();
-
 const server = http.createServer(app);
 const io = new Server(server);
+require('./db/firebase');
+const { db } = require('./db/firebase');
 
 io.on('connection', (socket) => {
     console.log('new socket connected');
@@ -21,7 +21,7 @@ const { ReadlineParser } = require('@serialport/parser-readline');
 //SerialPort.list().then(ports => console.log(ports))
 var dataArduino;
 
-const port = new SerialPort({ path: 'COM10', baudRate: 9600 }, (err) => {
+const port = new SerialPort({ path: 'COM4', baudRate: 9600 }, (err) => {
     if (err) {
         return console.log('Error: ', err)
     }
@@ -42,12 +42,14 @@ parser.on('data', (data) => {
     let nombresincortar = data
     let nombrecortado = nombresincortar.split(" ");
     let primernombre = nombrecortado[0];
-    
+
     let dinamico;
     let estatico;
-    
-    if (primernombre == "dinamico:") dinamico =nombrecortado[1];
+
+    if (primernombre == "dinamico:") dinamico = nombrecortado[1];
     else if (primernombre == "estatico:") estatico = nombrecortado[1];
+
+
 
 
     io.emit('arduino:data', {
@@ -59,6 +61,9 @@ parser.on('data', (data) => {
 parser.on('error', (err) => {
     console.log('error:', err.message)
 });
-server.listen(3000, () => {
+server.listen(3000, async () => {
     console.log('Server running');
+
+    const snapshot = await db.collection('energy').get();
+    console.log(snapshot.docs[0].data());
 })

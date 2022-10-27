@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "energymonitor-61943",
+  "private_key_id": "9e1e6311ce915f7edb99aebced03dde6d93010de",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDxHxqTk/42y5/K\ndSARaHvo6EX3BwAHQbesP9yypkGVzKgMf4kFwY8L1lB/fX17CbJbdyFolXZZjY2n\nNY3K3ODcIsDPxEA38GChkYrarFsGfBTQEpomHtLysAbBETQf2b6r3e3ClqbHj4+K\nz3dg3HT2QJesVwAWumjVDBvsaGYTLy1so/lBo8BbM4b6AQTwgU6QOKimlpJfEN5H\nG9gNQ4lZbF2L6f+zvYdKyKlyrgQi4chr0uB8F9WCmARUtQZL/SAjtMUyGsHbEple\n4xDasT4+osMnJi7gmVIRguiDmyC6fh9M/4f2WuCs4ONqhEnz0QiMuQnAwM7QIkjA\n+zWibA1lAgMBAAECggEAFRxuDUHF3jJR2T4MArotLyU3CvvX6sq8NB6bSiD4WQ9E\nH2QDMTfTOGwZPDBWjjE5Jnz1tdxwMkMMhflQYtSX824vh4FdRgiLzVma2K6CgbzX\nbahTSsckHQ+AZ+MDt04vPYj+yiy6iXpuTO8BOr/SlcTuAq7TWSoVB6I5x6cUWNV7\nGGuu+h4/MW6HnS7kO7tz0YwKUIRVw7o/Ohj4osxzVkmUtXFzq/uEZu3DG4oK2sPj\n9vJ0goaHwds6uY+LWt6BK25Wbt4qwmWSE+WVFYjRQQ5b3G9Ul6ytttGMsY+xp6PV\nwlMulFE1et+hWis4eiXQ9dwjDGH6iqrRZvUuMvIi+QKBgQD7S7fON2oJBpLRBDgU\nPnBm6IKDdjYP5MiAFl9flVHg63UARQQvMRvG5bEbE+TcOrlDgaFIFnQDjVUF7+lM\n09kjOACzya0/hGqsnBDhqNBiQTw3IA/ueXllQIeqdQNdQfY1OuQ2j7iQbrf0ueL/\nBcMRiJgEcxx8MZ+T2Lhv0N8MCwKBgQD1oqC06J7YF5tmSnD8W1lKTG+SHRMLtcxi\novD+gHYocPWJCwR1sx6n7RIci1lsOIVf77UODBib9PMySkhWZ+gzzMM+PJbW0Fm9\nDAEqJe0Mcny5aQIKMhDIhbRTmdzzmGifHFN+CcFf2rVerqQ1XU+WqZni7Tpdp6P8\ner//5sXCTwKBgAvKcrZfTT9dKphaDVON1nJNqIoIiuLWBj5UTmdKt0vJYHUBx/96\n22XKszOlDFD1BGpRc8LRIuJjyEB+EEFFk2OephHJfbKEQQkWTYh5BkYF75BalcTH\nuFVy4Kqz0NOYW7gFql2RAsTsHP+DlU4H9C4nbZKP4B9HqMgkHAtLDpwfAoGBAPON\nJZVa1Szj81RwWSkPFjCiKzoQE/NXdekTMKrYCtA8eGhCgVCGos3UNVISJT81p6Eh\nFz9vZPM14/EoUCNEcaryy2ApSVKDUYctoPX+ltTxq5NXeAtN6vA4Cj2eYMMzigDB\nYFOnLpJxU8YmmXDELYbwcUHdADMeZm2P9FGyqsDnAoGARUKEbZX8WCcmZHP0XDpp\nTmPZqOYbxuYn53vUj4DE/u2R/HwZwfK4HZgWcp6tXVDtKFIQGvHROFc0vp2x/YFn\nu+mSIH/qtLEZJ6yuK/sd764vgiF7O5lT+AEHIAGfdZtm4kKQKnc6FdagkBjqvKub\nIM/UPVDOrnt1XLYuiVGRyng=\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-osl08@energymonitor-61943.iam.gserviceaccount.com",
+  "client_id": "113516191316809854735",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-osl08%40energymonitor-61943.iam.gserviceaccount.com"
+}
