@@ -5,7 +5,7 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server);
 const cors = require('cors');
-const functions = require('./functions/function')
+const functions = require('./functions/function');
 
 io.on('connection', (socket) => {
     console.log('new socket connected');
@@ -13,6 +13,10 @@ io.on('connection', (socket) => {
 
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/public/index.html');
+});
+app.get('/reports', (req, res) => {
+    
+    res.sendFile(__dirname + '/public/reports.html');
 });
 
 app.use(express.json());
