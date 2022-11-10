@@ -14,9 +14,14 @@ exports.getData = async (req, res) => {
 }
 
 exports.createData = (req, res) => {
+
+    const {
+        dia,
+        estatico,
+        dinamico,
+        fecha
+    } = req.body;
    
-    const { dia, prodDia, prodHora, fecha } = req.body;
-    console.log({ dia, prodDia, prodHora, fecha });
     db.collection("energy").add({
         dia,
         estatico,
@@ -25,3 +30,4 @@ exports.createData = (req, res) => {
     });
     return res.status(200).json({ message: 'Created Successfully' });
 }
+
