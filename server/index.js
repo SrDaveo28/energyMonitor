@@ -27,7 +27,7 @@ const { ReadlineParser } = require('@serialport/parser-readline');
 //SerialPort.list().then(ports => console.log(ports))
 var dataArduino;
 
-const port = new SerialPort({ path: 'COM10', baudRate: 9600 }, (err) => {
+const port = new SerialPort({ path: 'COM8', baudRate: 9600 }, (err) => {
     if (err) {
         return console.log('Error: ', err)
     }
@@ -63,14 +63,28 @@ parser.on('data', async (data) => {
     let dataStatic = estatico !== undefined ? estatico : "0";
     let dataDynamic = dinamico !== undefined ? dinamico : "0";
 
-    const dataSave = {
-        dia: functions.formatDay(Date.now()),
-        dataStatic,
-        dataDynamic,
-        fecha: Date.now()
+    if (dataStatic == "0") {
+        let datos = {
+            dia: functions.formatDay(Date.now()),
+            data: dataDynamic,
+            fecha: Date.now()
+        }
+
+        await functions.execFirebase(datos, "dinamico");
+
+
+    } else if (dataDynamic == "0") {
+        let datos = {
+            dia: functions.formatDay(Date.now()),
+            data: dataStatic,
+            fecha: Date.now()
+        }
+        await functions.execFirebase(datos, "estatico");
+
     }
 
-    await functions.execFirebase(dataSave);
+   /* quiero hacer nomas ya la prueba cargar los datos y trabajar por el si da para pasar a excel oikota mas rapido para mi
+    */
 
 });
 

@@ -27,26 +27,7 @@ exports.formatDay = (timestamp) => {
     return getWeekDay;
 }
 
-exports.execFirebase = async (data) => {
-
-    if (data.dataStatic == "0") {
-        let datos = {
-            dia: functions.formatDay(Date.now()),
-            data: dataDynamic,
-            fecha: Date.now()
-        }
-        db.collection("dinamico").add(datos);
-        return console.log("saved");
-
-    } else if (data.dataDynamic == "0") {
-        let datos = {
-            dia: functions.formatDay(Date.now()),
-            data: dataStatic,
-            fecha: Date.now()
-        }
-        db.collection("estatico").add(datos);
-        return console.log("saved");
-    }
-
-
+exports.execFirebase = async (data, method) => {
+    db.collection(`${method}`).add(data);
+    return console.log("saved");
 }
