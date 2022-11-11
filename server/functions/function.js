@@ -50,8 +50,3 @@ exports.execFirebase = async (data) => {
 
 
 }
-
-module.exports = {
-    formatDay,
-    execFirebase
-}
