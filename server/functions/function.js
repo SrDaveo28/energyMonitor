@@ -29,7 +29,24 @@ exports.formatDay = (timestamp) => {
 
 exports.execFirebase = async (data) => {
 
-    console.log(data);
-    db.collection("energy").add(data);
-    return console.log("saved");
+    if (data.dataStatic == "0") {
+        let datos = {
+            dia: functions.formatDay(Date.now()),
+            data: dataDynamic,
+            fecha: Date.now()
+        }
+        db.collection("dinamico").add(datos);
+        return console.log("saved");
+
+    } else if (data.dataDynamic == "0") {
+        let datos = {
+            dia: functions.formatDay(Date.now()),
+            data: dataStatic,
+            fecha: Date.now()
+        }
+        db.collection("estatico").add(datos);
+        return console.log("saved");
+    }
+
+
 }
