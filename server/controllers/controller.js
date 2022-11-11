@@ -25,6 +25,7 @@ exports.getDataStaticVolts = async (req, res) => {
 
         return data
     })
+    result.sort((a, b) => a - b )
     return res.status(200).json(result);
 
 }
@@ -41,6 +42,8 @@ exports.getDataDinamicVolts = async (req, res) => {
 
         return data
     })
+
+    result.sort((a, b) => a - b )
     return res.status(200).json(result);
 
 }
