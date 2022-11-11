@@ -32,7 +32,7 @@
     </nav>
     <div class="container">
         <h1 class="text-center mb-3">Reportes</h1>
-
+        <h1 class="text-center mt-3 mb-3">Energía generada en Volts.</h1>
         <div class="row">
             <div class="col-6">
                 <div id="card-static" class="card">
@@ -46,14 +46,34 @@
             </div>
         </div>
 
-        <h1 class="text-center mt-3 mb-3">Energía generada</h1>
-
         <div class="row">
             <div class="col-6">
                 <canvas id="pie"></canvas>
             </div>
             <div class="col-6">
                 <canvas id="bar"></canvas>
+            </div>
+        </div>
+
+        <h1 class="text-center mt-3 mb-3">Energía generada en Watts.</h1>
+        <div class="row">
+            <div class="col-6">
+                <div id="card-staticW" class="card">
+
+                </div>
+            </div>
+            <div class="col-6">
+                <div id="card-dinamicW" class="card">
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <canvas id="pieWatts"></canvas>
+            </div>
+            <div class="col-6">
+                <canvas id="barWatts"></canvas>
             </div>
         </div>
     </div>
@@ -73,14 +93,29 @@
     <!--  <script src="initFirebase.js"></script> -->
     <script>
 
-        const getList = async () => {
+        const getListStatic = async () => {
             let result = await new Promise((resolve, reject) => {
                 var requestOptions = {
                     method: 'GET',
                     redirect: 'follow'
                 };
 
-                fetch("http://localhost:3000/list", requestOptions)
+                fetch("http://localhost:3000/list/staticvolts", requestOptions)
+                    .then(response => response.text())
+                    .then(result => resolve(JSON.parse(result)))
+                    .catch(error => console.log('error', error));
+            })
+
+            return result
+        }
+        const getListDinamic = async () => {
+            let result = await new Promise((resolve, reject) => {
+                var requestOptions = {
+                    method: 'GET',
+                    redirect: 'follow'
+                };
+
+                fetch("http://localhost:3000/list/dinamicvolts", requestOptions)
                     .then(response => response.text())
                     .then(result => resolve(JSON.parse(result)))
                     .catch(error => console.log('error', error));
@@ -94,13 +129,13 @@
             document.getElementById('card-static').innerHTML = /* html */ `
                 <div class="card-body">
                     <h5 class="card-title">Panel Solar Estático</h5>
-                    <h1 class="card-text">${static} W.</h1>
+                    <h1 class="card-text">${static} Volts.</h1>
                 </div>
             `;
             document.getElementById('card-dinamic').innerHTML = /* html */ `
                 <div class="card-body">
                     <h5 class="card-title">Panel Solar Estático</h5>
-                    <h1 class="card-text">${dinamic} W.</h1>
+                    <h1 class="card-text">${dinamic} Volts.</h1>
                 </div>
             `;
 
@@ -171,24 +206,102 @@
             });
         }
 
+
+        function energyReportWatts(static, dinamic) {
+            document.getElementById('card-staticW').innerHTML = /* html */ `
+                <div class="card-body">
+                    <h5 class="card-title">Panel Solar Estático</h5>
+                    <h1 class="card-text">${static} Watts.</h1>
+                </div>
+            `;
+            document.getElementById('card-dinamicW').innerHTML = /* html */ `
+                <div class="card-body">
+                    <h5 class="card-title">Panel Solar Estático</h5>
+                    <h1 class="card-text">${dinamic} Watts.</h1>
+                </div>
+            `;
+
+
+            const ctxPie = document.getElementById('pieWatts');
+
+            const configPie = new Chart(ctxPie, {
+                type: 'pie',
+                data: {
+                    labels: ["Estático", "Dinámico"],
+                    datasets: [{
+                        data: [static, dinamic],
+                        backgroundColor: ['#FCF7A0', '#FDB59F', '#36b9cc', '#ffc107'],
+                        hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf', '#ffc107'],
+                        hoverBorderColor: "rgba(234, 236, 244, 1)",
+                    }],
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    tooltips: {
+                        backgroundColor: "rgb(255,255,255)",
+                        bodyFontColor: "#858796",
+                        borderColor: '#dddfeb',
+                        borderWidth: 1,
+                        xPadding: 15,
+                        yPadding: 15,
+                        displayColors: false,
+                        caretPadding: 10,
+                    },
+                    legend: {
+                        display: false
+                    },
+                    cutoutPercentage: 50,
+                },
+            });
+
+
+            const ctxBar = document.getElementById('barWatts');
+
+            const config = new Chart(ctxBar, {
+                type: 'bar',
+                data: {
+                    labels: ["Estático", "Dinámico"],
+                    datasets: [{
+                        data: [static, dinamic],
+                        backgroundColor: ['#BAD5F0', '#C2D5A8', '#36b9cc', '#ffc107'],
+                        hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf', '#ffc107'],
+                        hoverBorderColor: "rgba(234, 236, 244, 1)",
+                    }],
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    tooltips: {
+                        backgroundColor: "rgb(255,255,255)",
+                        bodyFontColor: "#858796",
+                        borderColor: '#dddfeb',
+                        borderWidth: 1,
+                        xPadding: 15,
+                        yPadding: 15,
+                        displayColors: false,
+                        caretPadding: 10,
+                    },
+                    legend: {
+                        display: false
+                    },
+                    cutoutPercentage: 50,
+                },
+            });
+        }
+
         window.onload = async () => {
-            let apiResponse = await getList();
+            let apiResponseStatic = await getListStatic();
+            let apiResponseDinamic = await getListDinamic();
 
             let sumaDinamic = 0;
             let sumaStatic = 0;
-            await apiResponse.map((energy) => {
+            
+            await apiResponseStatic.map((energy) => sumaStatic += Number(energy));
+            await apiResponseDinamic.map((energy) => sumaDinamic += Number(energy));
 
-                if (energy.dataDynamic !== 0 && energy.dataDynamic !== undefined && energy.dataDynamic !== "0") {
-                    sumaDinamic += Number(energy.dataDynamic);
-
-                } else if (energy.dataStatic !== 0 && energy.dataStatic !== undefined && energy.dataStatic !== "0") {
-                    sumaStatic += Number(energy.dataStatic);
-                }
-
-
-            });
-
+            let staticWatts = sumaStatic * 0.4;
+            let dinamicWatts = sumaDinamic * 0.4;
             energyReport(sumaStatic.toFixed(2), sumaDinamic.toFixed(2));
+            energyReportWatts(staticWatts.toFixed(2), dinamicWatts.toFixed(2));
         }
     </script>
 </body>

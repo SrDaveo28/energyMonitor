@@ -83,9 +83,6 @@ parser.on('data', async (data) => {
 
     }
 
-   /* quiero hacer nomas ya la prueba cargar los datos y trabajar por el si da para pasar a excel oikota mas rapido para mi
-    */
-
 });
 
 

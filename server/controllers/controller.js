@@ -12,6 +12,38 @@ exports.getDataStatic = async (req, res) => {
     return res.status(200).json(energyData);
 
 }
+exports.getDataStaticVolts = async (req, res) => {
+    const snapshot = await db.collection('estatico').get();
+
+    const energyData = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+    }));
+
+    const result = energyData.map((result) => {
+        const { data } = result;
+
+        return data
+    })
+    return res.status(200).json(result);
+
+}
+exports.getDataDinamicVolts = async (req, res) => {
+    const snapshot = await db.collection('dinamico').get();
+
+    const energyData = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+    }));
+
+    const result = energyData.map((result) => {
+        const { data } = result;
+
+        return data
+    })
+    return res.status(200).json(result);
+
+}
 exports.getDataDinamic = async (req, res) => {
     const snapshot = await db.collection('dinamico').get();
 
@@ -32,7 +64,7 @@ exports.createData = (req, res) => {
         dinamico,
         fecha
     } = req.body;
-   
+
     db.collection("energy").add({
         dia,
         estatico,
