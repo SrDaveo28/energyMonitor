@@ -70,7 +70,7 @@ parser.on('data', async (data) => {
         fecha: Date.now()
     }
 
-    /* await functions.execFirebase(dataSave); */
+    await functions.execFirebase(dataSave);
 
 });
 
