@@ -65,6 +65,7 @@ parser.on('data', async (data) => {
 
     if (dataStatic == "0") {
         let datos = {
+            id: Date.now(),
             dia: functions.formatDay(Date.now()),
             data: dataDynamic,
             fecha: Date.now()
@@ -75,6 +76,7 @@ parser.on('data', async (data) => {
 
     } else if (dataDynamic == "0") {
         let datos = {
+            id: Date.now(),
             dia: functions.formatDay(Date.now()),
             data: dataStatic,
             fecha: Date.now()
